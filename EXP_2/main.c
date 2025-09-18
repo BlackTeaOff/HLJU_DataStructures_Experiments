@@ -127,6 +127,49 @@ void reverse(Node *head) {
 }
 */
 
+Node* merge(Node *head_a, Node *head_b) {
+    if (head_a == NULL || head_b == NULL) {
+        printf("有一链表未初始化\n");
+        return NULL;
+    }
+    if (head_a->next == NULL || head_b->next == NULL) {
+        printf("有一个链表为空表\n");
+        return NULL;
+    }
+    Node *p = head_a->next;
+    Node *q = head_b->next;
+    Node *temp;
+    Node *head_c = head_a; // 用a链表的头(用原表的空间)
+    head_c->next = NULL; // 重置头节点
+    while (p != NULL && q != NULL) { // 遍历到直到有一个链表为空
+        if (p->data < q->data) { // 选小的值头插到c中，实现倒序(此为p更小的情况)
+            temp = p; // 用temp临时存储要头插的节点
+            p = p->next; // 节点p继续向下移动
+        } else { // 此为q更小的情况
+            temp = q; // 用temp存q(q更小)
+            q = q->next;
+        }
+        temp->next = head_c->next; // 先把temp(要插入的节点)的next连接到head_c的next，否则等会会更新head_c->next
+        head_c->next = temp; // 头插到c链表(更新头节点)
+    }
+    if (p != NULL) { // 把剩余节点都头插到c(此为p，也就是a链表还有剩余的情况)
+        while (p != NULL) { // 遍历，直到a链表也为空
+            temp = p;
+            p = p->next;
+            temp->next = head_c->next; // 头插到c
+            head_c->next = temp; // 更新头节点
+        }
+    } else { // q(也就是b链表)有剩余的情况
+        while (q != NULL) {
+            temp = q;
+            q = q->next;
+            temp->next = head_c->next;
+            head_c->next = temp;
+        }
+    }
+    return head_c;
+}
+
 void listNode(Node *head) {
     if (head == NULL) {
         printf("链表未初始化\n");
@@ -148,6 +191,7 @@ int main() {
     insertTail(L, 3);
     insertTail(L, 5);
     insertTail(L, 6);
+    listNode(L);
     increasingOrder(L, 4);
     listNode(L);
     increasingOrder(L, 0);
@@ -164,4 +208,16 @@ int main() {
     listNode(list);
     reverse(list);
     listNode(list);
+
+    Node *a = initList();
+    Node *b = initList();
+    insertTail(a, 1);
+    insertTail(a, 3);
+    insertTail(a, 5);
+    listNode(a);
+    insertTail(b, 2);
+    insertTail(b, 4);
+    insertTail(b, 6);
+    listNode(b);
+    listNode(merge(a, b));
 }
