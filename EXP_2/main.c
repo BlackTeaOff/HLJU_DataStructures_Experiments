@@ -141,6 +141,7 @@ Node* merge(Node *head_a, Node *head_b) {
     Node *temp;
     Node *head_c = head_a; // 用a链表的头(用原表的空间)
     head_c->next = NULL; // 重置头节点
+    head_b = NULL;
     while (p != NULL && q != NULL) { // 遍历到直到有一个链表为空
         if (p->data < q->data) { // 选小的值头插到c中，实现倒序(此为p更小的情况)
             temp = p; // 用temp临时存储要头插的节点
