@@ -1,0 +1,3 @@
+// filepath: d:\Qt_Project\Data_Structures\.clang-format
+BasedOnStyle: Microsoft
+PointerAlignment: Right
