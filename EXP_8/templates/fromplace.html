@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>景点间路径查询</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_fromplace.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>景点间路径查询</h1>
+            <p>查询校园内任意两个景点之间的最短路径</p>
+        </header>
+
+    <main>
+        <div class="query-controls">
+            <div class="selector-group">
+                <labal for="start-select">选择起点</labal>
+                <select id="start-select">
+                    {% for place in places %}
+                    <option value="{{ place.id }}">{{ place.name }}</option> <!--这个id在python结构体里-->
+                    {% endfor %}
+                </select>
+            </div>
+                <div class="selector-group">
+                <label for="destination-select">选择终点</label>
+                <select id="destination-select">
+                    {% for place in places %}
+                    <option value="{{ place.id }}">{{ place.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button id="query-btn">查询路径</button>
+        </div>
+
+        <div class="content-wrapper">
+            <div id="map-container">
+                <object id="map" data="{{ url_for('static', filename='images/svg.svg') }}"></object>
+            </div>
+
+            <div id="result-container">
+                <h2>查询结果</h2>
+                <p id="result-text">请选择起点和终点并点击查询</p>
+            </div>
+        </div>
+    </main>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const querybtn = document.getElementById('query-btn');
+            const startSelect = document.getElementById('start-select');
+            const destinationSelect = document.getElementById('destination-select');
+            const resultText = document.getElementById('result-text');
+            const map = document.getElementById('map');
+
+            let svgDoc = null;
+        
+            map.addEventListener('load', function () {
+                svgDoc = map.contentDocument;
+            })
+
+            function resetMapStyles() {
+                if (!svgDoc) return;
+                const paths = svgDoc.querySelectorAll('path, line');
+                const nodes = svgDoc.querySelectorAll('circle');
+                paths.forEach(p => p.classList.remove('highlight'));
+                nodes.forEach(n => n.classList.remove('highlight'));
+            }
+
+            querybtn.addEventListener('click', async function () {
+                resetMapStyles();
+
+                const startID = startSelect.value;
+                const destID = destinationSelect.value;
+                if (startID == destID) {
+                    resultText.innerHTML = '起点和终点不能相同';
+                    return;
+                }
+                resultText.innerHTML = ' 正在查询中';
+
+                const res = await fetch(`/path/from_place/${startID}/to/${destID}`);
+                const data = await res.text();
+                const jsonData = JSON.parse(data);
+                resultText.innerHTML = `
+                    <p>查询成功<p>
+                    <p>起点: ${jsonData.start}<p>
+                    <p>终点: ${jsonData.dest}<p>
+                    <p>距离: ${jsonData.distance}m<p>
+                    <p>路径: ${jsonData.path}<p>
+                `
+
+                jsonData.path_ids.forEach(id => {
+                    const node = svgDoc.getElementById(`node-${id}`) // 去svg图里找node-id的点
+                    if (node) node.classList.add('highlight');
+
+                    for (let i = 0; i < jsonData.path_ids.length - 1; i++) {
+                        let start = jsonData.path_ids[i];
+                        let end = jsonData.path_ids[i + 1]; // 第一个端点和下一个端点的下标
+                        let path = svgDoc.getElementById(`path-${start}-${end}`) || svgDoc.getElementById(`path-${end}-${start}`); // 去svg图里找id为path-start-end(或path-end-start)的线
+                        if (path) {
+                            path.classList.add('highlight');
+                        }
+                    }
+                })
+            })
+        })
+    </script>
+
+</body>
+</html>

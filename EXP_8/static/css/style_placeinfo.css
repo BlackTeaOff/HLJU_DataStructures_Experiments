@@ -1,0 +1,122 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    background-color: azure;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0px 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 20px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+#nav {
+    padding: 0px 20px 0px 20px; /* 上左下右 */
+    max-width: 1000px;
+    margin: 0 auto; /* 上下外边距为0, 左右外间距自动, 居中效果 */
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 10em;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    list-style: none;
+    z-index: 1;
+}
+
+button {
+    font-size: 1.2rem;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    width: 100px;
+    height: 40px;
+    z-index: 3;
+}
+
+#nav li {
+    position: relative;
+    padding-top: 15px; /* 上下内间距 */
+    padding-bottom: 15px;;
+    text-align: center;
+    z-index: 2;
+}
+
+#nav li.slide1, /* 特指优先级高 */
+#nav li.slide2 {
+    position: absolute;
+    display: block;
+    border-radius: 10em;
+    height: 15px;
+    z-index: -1;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.slide1 {
+    background-color: rgb(170, 190, 255);
+    opacity: 0;
+}
+
+.slide2 {
+    opacity: 0;
+    background-color: rgba(170, 190, 255, 0.5);
+}
+
+.clipper {
+    overflow: hidden;
+}
+
+.cards-wrapper { /* 显示的最大宽度 */
+    overflow: visible;
+}
+
+.cards-container {
+    display: flex;
+    transform: translateX(200px); /* 刚开始就把卡片移到中间 */
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.card {
+    flex-shrink: 0; /* 空间不足不会压缩项目的大小 */
+    width: 800px;
+
+    padding: 20px;
+    margin: 40px 10px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    min-height: 500px;
+
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    flex-direction: column; /* 垂直排列子元素 */
+}
+
+.card h2 {
+    margin-top: 0;
+    color: #2c3e50;
+    text-align: center;
+}
+
+img {
+    width: 50%;
+}

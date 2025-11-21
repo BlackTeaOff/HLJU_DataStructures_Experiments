@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校门路径查询 - 校园导览系统</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_fromgate.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <a href="/" class="back-link">&larr; 返回主页</a>
+            <h1>校门路径查询</h1>
+            <p>查询从【主门】到任意景点的最短路径</p>
+        </header>
+
+        <main>
+            <div class="query-controls">
+                <label for="destination-select">选择目的地：</label>
+                <select id="destination-select">
+                    {% for place in places %}
+                    {% if place.id != 0 %}
+                    <option value="{{ place.id }}">{{ place.name }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                <button id="query-btn">查询路径</button>
+            </div>
+
+            <div class="content-wrapper">
+                <div id="map-container">
+                    <!-- SVG地图将通过object标签嵌入 -->
+                    <object id="campus-map-object" type="image/svg+xml"
+                        data="{{ url_for('static', filename='images/campus_map.svg') }}"></object>
+                </div>
+                <div id="result-container">
+                    <h2>查询结果</h2>
+                    <p id="result-text">请选择一个目的地并点击查询。</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const queryBtn = document.getElementById('query-btn');
+            const destinationSelect = document.getElementById('destination-select');
+            const resultText = document.getElementById('result-text');
+            const mapObject = document.getElementById('campus-map-object');
+
+            let svgDoc = null;
+
+            mapObject.addEventListener('load', function() {
+                svgDoc = mapObject.contentDocument;
+            });
+
+            function resetMapStyles() {
+                if (!svgDoc) return;
+                const allPaths = svgDoc.querySelectorAll('path, line');
+                const allNodes = svgDoc.querySelectorAll('circle');
+                allPaths.forEach(p => p.classList.remove('highlight'));
+                allNodes.forEach(n => n.classList.remove('highlight'));
+            }
+
+            queryBtn.addEventListener('click', function () {
+                const destId = destinationSelect.value;
+                resultText.innerHTML = '正在查询中...';
+                resetMapStyles();
+
+                fetch(`/path/from_gate/${destId}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP 错误! 状态: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log("收到的数据:", data); // 打印收到的数据用于调试
+
+                        if (data.error) {
+                            resultText.innerHTML = `<span class="error">查询失败: ${data.error}</span>`;
+                            return;
+                        }
+
+                        // 【关键修改】不再检查 data.path
+                        if (data.distance === undefined || data.path_ids === undefined) {
+                            console.error('后端返回的数据格式不正确:', data);
+                            resultText.innerHTML = `<span class="error">查询失败: 后端返回的数据格式不正确。请检查JSON键名是否为 'distance', 'path_ids'。</span>`;
+                            return;
+                        }
+
+                        // 【关键修改】不再显示路径名称，只显示ID
+                        let pathIdString = data.path_ids.join(' &rarr; ');
+                        resultText.innerHTML = `
+                            <p><strong>测试成功！数据已收到。</strong></p>
+                            <p><strong>总距离：</strong> ${data.distance} 米</p>
+                            <p><strong>路径ID：</strong> ${pathIdString}</p>
+                        `;
+
+                        // 高亮地图路径 (这部分不受影响)
+                        if (svgDoc && data.path_ids) {
+                            data.path_ids.forEach(id => {
+                                const node = svgDoc.getElementById(`node-${id}`);
+                                if (node) node.classList.add('highlight');
+                            });
+
+                            for (let i = 0; i < data.path_ids.length - 1; i++) {
+                                let start = data.path_ids[i];
+                                let end = data.path_ids[i + 1];
+                                let pathElement = svgDoc.getElementById(`path-${start}-${end}`) || svgDoc.getElementById(`path-${end}-${start}`);
+                                if (pathElement) {
+                                    pathElement.classList.add('highlight');
+                                }
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Fetch 操作失败:', error);
+                        resultText.innerHTML = `<span class="error">查询失败: ${error.message}。</span>`;
+                    });
+            });
+        });
+    </script>
+</body>
+</html>

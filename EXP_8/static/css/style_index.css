@@ -1,0 +1,88 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    background-color:azure;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+}
+
+/*.container {
+    width: 90%;
+    max-width: 1200px;
+    padding: 40px 20px;
+}*/
+
+header img {
+    width: 25%;
+}
+
+header h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+    font-weight: 300;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap; /*容器内元素是否可以换行*/
+    justify-content: center;
+    gap: 30px; /*容器内元素间距*/
+}
+
+.card {
+    background-color: white;
+    border-radius: 15px; /*圆角*/
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /*阴影*/
+    width: 300px;
+    padding: 30px; /*内边距*/
+    text-decoration: none; /*改成无下划线*/
+    color: inherit; /*继承父元素的颜色(文本颜色)*/
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /*这两个效果加缓动*/
+    position: relative;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-10px); /*向上移动*/
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+}
+
+.card-content h2 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #e0e0e0;
+    position: absolute; /*绝对定位, 相对于最近的父元素*/
+    top: -10px;
+    left: 20px;
+    transition: color 0.3s ease;
+}
+
+.card:hover .card-content h2 { /*悬停card, 修改card-content中h2颜色*/
+    color: #3498db;
+}
+
+.card-content h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-top: 40px;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.card-content p {
+    font-size: 1rem;
+    color: #7f8c8d;
+    position: relative;
+}

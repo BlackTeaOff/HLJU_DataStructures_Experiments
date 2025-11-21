@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校门路径查询</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_fromgate.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <header> <!--上面的文字部分-->
+            <h1>校门路径查询</h1>
+            <p>查询从校门口到其他景点的最短路径</p>
+        </header>
+
+        <main> <!--下面的功能部分-->
+            <div class="query-controls"> <!--选择终点框-->
+                <lable for="destination-select">选择目的地: </lable> <!--选择框-->
+                <select id="destination-select"> <!--选项-->
+                    {% for place in places %} <!--后端传入places结构体数组-->
+                    {% if place.id != 0 %}
+                    <option value="{{ place.id }}">{{ place.name }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                <button id="query-btn">查询路径</button>
+            </div>
+
+            <div class="content-wrapper"> <!--地图及输出的路径-->
+                <div id="map-container">
+                    <object id="map" data="{{ url_for('static', filename='images/svg.svg') }}">
+                    </object>
+                </div>
+
+                <div id="result-container">
+                    <h2>查询结果</h2>
+                    <p id="result-text">请选择一个目的地并点击查询。</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () { // 网页加载完成就可以开始执行
+            const queryBtn = document.getElementById('query-btn'); // 用来判断按按钮
+            const destinationSelect = document.getElementById('destination-select'); // 获取目的地id
+            const resultText = document.getElementById('result-text');
+            const map = document.getElementById('map');
+
+            let svgDoc = null;
+
+            map.addEventListener('load', function () { // 加载完map执行
+                svgDoc = map.contentDocument;
+            })
+
+            function resetMapStyles() { // 这里只是定义函数, 没有执行
+                if (!svgDoc) return;
+                const paths = svgDoc.querySelectorAll('path, line');
+                const nodes = svgDoc.querySelectorAll('circle');
+                paths.forEach(p => {p.classList.remove('highlight')});
+                nodes.forEach(n => n.classList.remove('highlight'));
+            }
+
+            queryBtn.addEventListener('click', async function () { // 点击后就去后端查询
+
+                resetMapStyles();
+
+                const destID = destinationSelect.value;
+                resultText.innerHTML = '正在查询中';
+
+                const res = await fetch(`/path/from_gate/${destID}`);
+                const data = await res.text();
+                // console.log(data);
+                const jsonData = JSON.parse(data);
+                // console.log(jsonData.start);
+                // console.log(jsonData.path_ids);
+                resultText.innerHTML = `
+                    <p>查询成功</p>
+                    <p>起点: ${jsonData.start}</p>
+                    <p>终点: ${jsonData.destination}</p>
+                    <p>距离: ${jsonData.distance}m</p>
+                    <p>路径: ${jsonData.path}</p>
+                `;
+
+                jsonData.path_ids.forEach(id => { // 把path_ids数组里面的id取出来, 在svg里面查找并加样式
+                    const node = svgDoc.getElementById(`node-${id}`); // 去svg图里找node-id的点
+                    if (node) node.classList.add('highlight'); // 高亮
+
+                    for (let i = 0; i < jsonData.path_ids.length - 1; i++) {
+                        let start = jsonData.path_ids[i]; // 找到第一个端点
+                        let end = jsonData.path_ids[i + 1]; // 找到下一个端点
+                        // console.log(start);
+                        // console.log(end);
+                        let path = svgDoc.getElementById(`path-${start}-${end}`) || svgDoc.getElementById(`path-${end}-${start}`); // 在svg图里找start端点到end端点的边, 顺序不确定, 所以正反都写
+                        // console.log(path);
+                        if (path) {
+                            path.classList.add('highlight');
+                        }
+                    }
+                })
+            })
+        })
+    </script>
+
+
+</body>
+</html>

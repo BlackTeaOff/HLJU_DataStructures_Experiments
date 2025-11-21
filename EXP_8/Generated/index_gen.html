@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校园导览系统</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_index.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>校园导览系统</h1>
+            <p>选择一个功能开始探索</p>
+        </header>
+        <main class="card-container">
+            <a href="/query-info" class="card">
+                <div class="card-content">
+                    <h2>01</h2>
+                    <h3>景点信息查询</h3>
+                    <p>查看校园内所有景点的详细介绍。</p>
+                </div>
+            </a>
+            <a href="/query-from-gate" class="card">
+                <div class="card-content">
+                    <h2>02</h2>
+                    <h3>校门路径查询</h3>
+                    <p>查询从校门口到任意景点的最短路径。</p>
+                </div>
+            </a>
+            <a href="/query-between-places" class="card">
+                <div class="card-content">
+                    <h2>03</h2>
+                    <h3>景点间路径查询</h3>
+                    <p>查询校园内任意两个景点之间的最短路径。</p>
+                </div>
+            </a>
+        </main>
+    </div>
+</body>
+</html>

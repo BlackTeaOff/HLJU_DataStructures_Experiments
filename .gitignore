@@ -4,6 +4,7 @@
 main
 
 Reports/
+Backup/
 
 # 特定于IDE的文件夹
 .vscode/

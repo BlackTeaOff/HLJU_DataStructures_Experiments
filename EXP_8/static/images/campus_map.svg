@@ -1,0 +1,65 @@
+<svg width="600" height="500" viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg">
+    <!--
+        Map Node and Path IDs correspond to the C data structure.
+        Node ID: "node-X" where X is the index (0-9)
+        Path ID: "path-X-Y" where X and Y are the connected node indices.
+    -->
+    <style>
+        .bg { fill: #f4f7f6; }
+        .path { stroke: #d0d9e0; stroke-width: 3; stroke-linecap: round; transition: stroke 0.3s ease; }
+        .node { fill: #ffffff; stroke: #a0b0c0; stroke-width: 2; transition: fill 0.3s ease, stroke 0.3s ease; }
+        .label { font-family: 'Noto Sans SC', sans-serif; font-size: 12px; fill: #555; text-anchor: middle; pointer-events: none; }
+        
+        /* Highlight styles */
+        .path.highlight { stroke: #e74c3c; stroke-width: 5; }
+        .node.highlight { fill: #e74c3c; stroke: #c0392b; }
+    </style>
+
+    <rect width="100%" height="100%" class="bg"/>
+
+    <!-- Paths -->
+    <line id="path-0-1" class="path" x1="100" y1="250" x2="180" y2="150" />
+    <line id="path-0-2" class="path" x1="100" y1="250" x2="180" y2="350" />
+    <line id="path-1-2" class="path" x1="180" y1="150" x2="180" y2="350" />
+    <line id="path-1-3" class="path" x1="180" y1="150" x2="280" y2="150" />
+    <line id="path-1-5" class="path" x1="180" y1="150" x2="250" y2="250" />
+    <line id="path-3-4" class="path" x1="280" y1="150" x2="420" y2="150" />
+    <line id="path-5-6" class="path" x1="250" y1="250" x2="330" y2="300" />
+    <line id="path-6-7" class="path" x1="330" y1="300" x2="420" y2="250" />
+    <line id="path-4-7" class="path" x1="420" y1="150" x2="420" y2="250" />
+    <line id="path-4-9" class="path" x1="420" y1="150" x2="500" y2="200" />
+    <line id="path-7-9" class="path" x1="420" y1="250" x2="500" y2="200" />
+    <line id="path-8-9" class="path" x1="500" y1="350" x2="500" y2="200" />
+
+    <!-- Nodes and Labels -->
+    <!-- 0: 主门 -->
+    <circle id="node-0" class="node" cx="100" cy="250" r="8"/>
+    <text class="label" x="100" y="275">主门</text>
+    <!-- 1: 主楼 -->
+    <circle id="node-1" class="node" cx="180" cy="150" r="8"/>
+    <text class="label" x="180" y="135">主楼</text>
+    <!-- 2: 体育场 -->
+    <circle id="node-2" class="node" cx="180" cy="350" r="8"/>
+    <text class="label" x="180" y="375">体育场</text>
+    <!-- 3: 联通广场 -->
+    <circle id="node-3" class="node" cx="280" cy="150" r="8"/>
+    <text class="label" x="280" y="135">联通广场</text>
+    <!-- 4: 汇文楼 -->
+    <circle id="node-4" class="node" cx="420" cy="150" r="8"/>
+    <text class="label" x="420" y="135">汇文楼</text>
+    <!-- 5: 新图书馆 -->
+    <circle id="node-5" class="node" cx="250" cy="250" r="8"/>
+    <text class="label" x="250" y="275">新图书馆</text>
+    <!-- 6: A区食堂 -->
+    <circle id="node-6" class="node" cx="330" cy="300" r="8"/>
+    <text class="label" x="330" y="325">A区食堂</text>
+    <!-- 7: B区食堂 -->
+    <circle id="node-7" class="node" cx="420" cy="250" r="8"/>
+    <text class="label" x="420" y="275">B区食堂</text>
+    <!-- 8: C区食堂 -->
+    <circle id="node-8" class="node" cx="500" cy="350" r="8"/>
+    <text class="label" x="500" y="375">C区食堂</text>
+    <!-- 9: 艺术楼 -->
+    <circle id="node-9" class="node" cx="500" cy="200" r="8"/>
+    <text class="label" x="500" y="185">艺术楼</text>
+</svg>

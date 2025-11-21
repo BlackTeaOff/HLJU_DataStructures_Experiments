@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>黑龙江大学校园导游系统</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_index.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header> <!--图片及标题-->
+            <img src="/static/images/HLJU.png" alt="HLJUPNG">
+            <h1>校园导游系统</h1>
+            <p>请选择要使用的功能</p>
+        </header>
+
+        <main class="card-container"> <!--下面的卡片容器-->
+            <a href="placeinfo" class="card"> <!--卡片本身, 带有连接, <a>本身代表有超链接的意思-->
+                <div class="card-content"> <!--存储卡片里面内容的容器-->
+                    <h2>01</h2>
+                    <h3>景点信息查询</h3>
+                    <p>查看校园内所有景点的详细介绍</p>
+                </div>
+            </a>
+            <a href="query-from-gate", class="card">
+                <div class="card-content">
+                    <h2>02</h2>
+                    <h3>校门路径查询</h3>
+                    <p>查询从校门口到其他景点的最短路径</p>
+                </div>
+            </a>
+            <a href="query-from-place" class="card">
+                <div class="card-content">
+                    <h2>03</h2>
+                    <h3>景点间路径查询</h3>
+                    <p>查询校园内任意两个景点之间的最短路径</p>
+                </div>
+            </a>
+        </main>
+    </div>
+</body>
+</html>

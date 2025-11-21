@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>景点信息</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_placeinfo.css') }}">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>景点信息</h1>
+        </header>
+
+        <ul id="nav">
+            <li class="slide1"></li>
+            <li class="slide2"></li>
+            <li><button>主楼</button></li>
+            <li><button>体育场</button></li>
+            <li><button>联通广场</button></li>
+            <li><button>汇文楼</button></li>
+            <li><button>新图书馆</button></li>
+            <li><button>A区食堂</button></li>
+            <li><button>B区食堂</button></li>
+            <li><button>C区食堂</button></li>
+            <li><button>艺术楼</button></li>
+        </ul>
+
+        
+    </div>
+
+    <!--把卡片部分移出container, 因为container只占90%(width)-->
+    <div class="clipper"> <!--剪切溢出部分-->
+        <div class="cards-wrapper"> <!--显示卡片部分的容器-->
+            <div class="cards-container">
+                <div class="card">
+                    <h2>主楼</h2>
+                    <img src="/static/images/mainbuilding.jpg" alt="mainbuilding">
+                    <p>黑龙江大学主楼, 是黑龙江大学的地标建筑之一, 奠基于1959年, 历经三次改扩建, 于2012年正式完工。
+                    黑龙江大学主楼建筑风格为折衷式，融合了俄罗斯社会主义民族风格的基本框架和中国建筑的装饰，是哈尔滨近现代建筑中的代表。黑龙江大学主楼，与哈尔滨工业大学主楼、黑龙江中医院大学主楼
+                    被国家文化部誉为全国高校“俄罗斯社会主义民族风格”教学主楼三大经典作品，是国家级一类保护建筑（全国重点文物保护工程）。
+                    黑龙江大学主楼现为黑龙江大学-外国语学部（俄语学部、西方语言研究院、东方语言研究院）以及学校校长办公室、党委等行政机关等教学单位用楼。</p>
+                </div>
+
+                <div class="card">
+                    <h2>体育场</h2>
+                    <img src="/static/images/sportbuilding.jpg" alt="sportbuilding">
+                    <p>黑龙江大学体育馆于2001年9月建成, 总建筑面积18500平方米, 由主馆(比赛馆)、综合训练馆、艺术体操馆、乒乓球馆组成, 设有贵宾室、会议室、新闻中心、兴奋剂检测中心、裁判员和运动员休息室等。主馆比赛场地使用面积2400平方米, 有固定坐席3853位。是一座集体育教学、体育赛事、大型集会、文艺演出、群体活动等多功能为一体的综合性体育馆。
+                    
+                    黑龙江大学体育馆建成以来，国内的许多重大赛事在此成功的举行，如全国大学生乒乓球锦标赛, CUBA中国大学生篮球赛, CUBS中国大学生篮球超级联赛, WCBA全国女子篮球甲级联赛, NBL全国男子篮球联赛, 中国哈尔滨体育舞蹈公开赛, “直通莫斯科”中国乒乓球男队选拔赛，全国乒乓球锦标赛，中国大学生武术散打锦标赛等。
+                    
+                    黑龙江大学体育馆还承办过国际女子排球大奖赛, 亚洲男子排球挑战赛, 国际男子篮球对抗赛, 四大洲国际男篮冠军赛, 国际女子篮球邀请赛, 第22届亚洲男子篮球锦标赛, 中俄武术散打拳击对抗赛,“哈洽会”跆拳道国际邀请赛，哈尔滨“冰雪节”国际跆拳道邀请赛,“昆仑决”世界极限格斗系列赛等重大的国际赛事。
+                    
+                    这些大型赛事活动的成功举办，开创了省属院校举办世界水平体育赛事的先河，这不但是我校改革与发展的一个重要标志，也是我校综合实力的象征。</p>
+                </div>
+
+                <div class="card">
+                    <h2>联通广场</h2>
+                    <img src="/static/images/unicomsquare.jpg" alt="unicomsquare">
+                    <p>黑龙江大学联通广场是校园内重要的公共活动空间, 位于A区核心位置, 紧邻2号教学楼和第一图书馆, 兼具休闲、运动、集会等多种功能, 是学生日常活动的重要场所。广场提供跑步、健身等活动的场地, 夜晚常见学生在此锻炼, 学校升旗仪式等大型活动也常在此举行, 2025年“10·10世界精神卫生日”广场心理嘉年华曾在此举办, 促进学生心理健康。周边有2号教学楼、第一图书馆、A区食堂、体育馆等设施, 作为校园“一站式”学生社区的一部分, 联通广场通过线上线下结合的方式, 支持学生思想引领、实践创新等多元发展需求, 是黑大校园生活中充满活力的地标之一。</p>
+                </div>
+
+                <div class="card">
+                    <h2>汇文楼</h2>
+                    <img src="/static/images/huiwenbuilding.jpg" alt="huiwenbuilding">
+                    <p>黑龙江大学汇文楼是位于哈尔滨市南岗区学府路74号校园内的重要标志性建筑, 紧邻测绘路东门, 与学校主楼相呼应。作为核心教学与办公场所, 它主要承担文史社科类学院的教学任务。楼内设施完善, 拥有大量教室、教师办公室(尤其分布于高楼层)以及供学生自习的大厅沙发区和小桌。同时, 汇文楼注重生活便利性, 内设咖啡厅、自助打印复印机、银行ATM机, 楼后还配有菜鸟驿站方便取件, 部分楼层更设有如应用心理学等专业的实验室。建筑本身延续了校园的俄式风格, 不仅承载着重要的教学与行政功能, 也见证了无数学子的学习时光和青春记忆, 是黑大校园文化的重要地标。</p>
+                </div>
+
+                <div class="card">
+                    <h2>新图书馆</h2>
+                    <img src="/static/images/library.jpg" alt="library">
+                    <p>黑龙江大学图书馆(Heilongjiang University Library)成立于1958年, 馆址位于黑龙江省哈尔滨市南岗区学府路74号, 馆舍总面积44296平方米。馆藏文献总量593万册, 其中纸质文献412.9万册, 包含俄文文献14.6万册、明清善本等古籍5000余种, 俄罗斯侨民在华出版文献为特色馆藏。其前身为1941年中国抗日军政大学第三分校俄文大队图书室, 1944年更名为延安外国语学校图书室, 1981年建成独立馆舍, 2011年第二图书馆启用。该馆为联合国教科文组织图书馆成员, 承担黑龙江省高校图工委秘书处职能, 与加拿大、日本等多国开展文献互换及学术交流。设有电子资源平台包含中文数据库99个, 涵盖学术期刊、学位论文等类型。</p>
+                </div>
+
+                <div class="card">
+                    <h2>A区食堂</h2>
+                    <img src="/static/images/Acanteen.webp" alt="Acanteen">
+                    <p></p>黑龙江大学A区食堂(格致园餐厅)位于新图书馆对面, 是学校最早且规模最大的食堂, 共四层。作为校内三大食堂中规模最大的餐饮场所, 它承担着A区教学楼师生日常就餐的主要职能, 午间及傍晚时段客流量最大。食堂菜品种类丰富, 提供东北家常菜、麻辣烫、小火锅、饺子、饭包等多种美食, 其中饺子皮薄馅厚, 饭包浓香满足, 人均消费约11元, 符合学生消费能力‌</p>
+                </div>
+
+                <div class="card">
+                    <h2>B区食堂</h2>
+                    <img src="/static/images/Bcanteen.png" alt="Bcanteen">
+                    <p>黑龙江大学B区食堂(子衿园餐厅)位于B区篮球场旁, 共两层, 以面食和特色档口为主。一楼的水煮肉片是“人气王”, 热油浇淋后香气扑鼻; 大盘鸡拌面分量足、价格实惠, 广受好评。二楼的鲜渔粉以Q弹米线和浓郁汤汁为特色, 此外还有麻辣拌、番茄米线等地方美食‌, 食堂整体性价比高, 可满足日常用餐、朋友聚餐等需求</p>
+                </div>
+
+                <div class="card">
+                    <h2>C区食堂</h2>
+                    <img src="/static/images/Ccanteen.jpg" alt="Ccanteen">
+                    <p>黑龙江大学C区食堂(丽泽园食堂)是学校三大食堂之一, 位于丽泽园中心区域, 共四层, 提供多样化的餐饮选择。一楼以快餐、自选菜为主, 价格亲民; 二楼主打烤盘饭、牛肉炒面等; 三楼设有茶泡饭、猪肚鸡等特色餐品; 四楼引入罗七叔泰国米粉、韭菜姑小锅猪肚鸡等品牌档口, 并设有面包坊。此外, C区周边还设有移动餐车, 提供便捷服务。C食堂通过多元化的档口和丰富的菜品, 满足了学生从日常快餐到特色餐饮的需求, 是丽泽园区域的重要餐饮中心。</p>
+                </div>
+
+                <div class="card">
+                    <h2>艺术楼</h2>
+                    <img src="/static/images/artbuilding.png" alt="artbuilding">
+                    <p>黑龙江大学艺术学院, 位于黑龙江省哈尔滨市, 是中国北方地区高等艺术教育、教学、科研的中心之一, 肩负着为全省培养艺术师资和艺术专门人才双重任务, 黑龙江大学的艺术类的教学质量、学科评估和国家科研项目位列黑龙江省高校第一。
+                    学院依托于黑龙江大学, 拥有全国悠久厚重的艺术教育传统, 是校所属的二级学院, 是国家、省政府重点建设的艺术类学院, 设有东北三省唯一的“国家级艺术人才试点实验班(文化部定向培养、国家旅游局、国家美术馆、国家艺术馆定向培养)”、“教育部人文社科重点基地”、“教育部领导型媒体创新人才培养实验区”、“国家文化产业创新与发展研究基地”、“国家艺术基金艺术人才培养项目（国家培养）”、“哥本哈根皮草实验室（国际合作）”、“世界非物质文化艺术实验示范中心”、“现代艺术设计研究中心”、“国家冰雪文化艺术研究中心”。设有东北地区唯一的大型高校艺术展览馆、少数民族艺术展览馆、图书音像资料馆和数字电影研究资料库。
+                    学院师资力量雄厚, 集中了一大批毕业于耶鲁大学-音乐学院、英国-皇家音乐学院、莫斯科-国立柴可夫斯基音乐学院、中央音乐学院、中央美术学院、清华大学等世界顶尖高校的、具有较高知名度的艺术家和优秀青年骨干力量, 及留学意大利、俄罗斯等国际顶尖高等艺术学府的专业学者, 旨在培养符合知识经济时代需求, 拥有艺术研究、艺术批评、艺术教育和艺术管理造诣, 创造性、复合型的国家高级专门艺术人才。</p>
+                </div>
+            </div>
+        </div>
+        </div>
+
+    <script>
+        $('#nav button').on("click", function () {
+            var position = $(this).parent().position(); // 移动滑块位置
+            var width = $(this).parent().width();
+            $("#nav .slide1").css({ opacity: 1, left: +position.left, width: width });
+
+            const index = $(this).parent().index() - 2; // 因为前面有两个slide
+            // const wrapperWidth = $('.cards-wrapper').width();
+            const $activeCard = $('.card').eq(index); // 筛选指定index的卡
+
+            const screenCenter = $(window).width() / 2; // 计算屏幕中点位置
+            const cardCenter = $activeCard.position().left + $activeCard.outerWidth(true) / 2; // 计算卡片中点位置(算上margin)
+
+            const moveDistance = screenCenter - cardCenter;
+            $('.cards-container').css('transform', `translateX(${moveDistance}px)`);
+        })
+
+        $("#nav button").on("mouseover", function () {
+            var position = $(this).parent().position();
+            var width = $(this).parent().width();
+            $("#nav .slide2").css({ opacity: 1, left: +position.left, width: width });
+        })
+
+        $("#nav button").on("mouseout", function () {
+            $("#nav .slide2").css({ opacity: 0 })
+        })
+
+        setTimeout(function () {
+            $("#nav button").first().trigger('click'); // 所有button, 选第一个触发click
+        }, 100);
+    </script>
+
+</body>
+
+</html>
